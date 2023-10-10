@@ -11,6 +11,7 @@ import CoreData
 struct AddContactView: View {
 	
 	@Environment(\.dismiss) private var dismiss
+	
 	@ObservedObject var vm: EditContactViewModel    //> new instance of vm
 	
     var body: some View {

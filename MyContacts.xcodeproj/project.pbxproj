@@ -65,11 +65,11 @@
 		F5DFB1062AD5B3D5003D8AFC /* MyContacts */ = {
 			isa = PBXGroup;
 			children = (
+				F5DFB1072AD5B3D5003D8AFC /* MyContactsApp.swift */,
 				F5DFB11A2AD5BF5D003D8AFC /* Provider */,
 				F5DFB1232AD5D0E4003D8AFC /* Add  */,
-				F5DFB1072AD5B3D5003D8AFC /* MyContactsApp.swift */,
-				F5DFB11D2AD5C2B9003D8AFC /* ContactRowView.swift */,
 				F5DFB1092AD5B3D5003D8AFC /* ContentView.swift */,
+				F5DFB11D2AD5C2B9003D8AFC /* ContactRowView.swift */,
 				F5DFB11F2AD5C44A003D8AFC /* ContactDetailView.swift */,
 				F5DFB1152AD5B742003D8AFC /* MyContactsDataModel.xcdatamodeld */,
 				F5DFB1182AD5BE37003D8AFC /* Contact .swift */,

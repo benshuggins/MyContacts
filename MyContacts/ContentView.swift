@@ -6,26 +6,27 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ContentView: View {
 	
 	@State private var isShowingAddContact = false
-	
+	@FetchRequest(fetchRequest: Contact.all()) private var contacts // not using fetchedresults here ??? // this is a property wrapper cont
+	 
 	var provider = ContactsProvider.shared
 	
 	var body: some View {
 		NavigationStack {
 			List {
-				ForEach((0...10), id: \.self) { item in
+				ForEach(contacts) { contact in
 					
 					ZStack(alignment: .leading) {
-						NavigationLink(destination: ContactDetailView()) {
-							
+						NavigationLink(destination: ContactDetailView(contact: contact)) {
 							EmptyView()
 						}
 						.opacity(0)
 						
-						ContactRowView()
+						ContactRowView(contact: contact)  
 					}
 				}
 			}
@@ -50,8 +51,8 @@ struct ContentView: View {
 	}
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}

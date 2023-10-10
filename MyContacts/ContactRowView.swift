@@ -8,38 +8,58 @@
 import SwiftUI
 
 struct ContactRowView: View {
+	
+	@Environment(\.managedObjectContext) private var moc
+	
+	@ObservedObject var contact: Contact     // @observedObject this is here because contact is a class and we want to use it inside an innerview and have the data update				// this was sent in 
+	
     var body: some View {
 		VStack(alignment: .leading,
 			   spacing: 8) {
 			
-			Text("Name")
-				.font(.system(size: 26,
-							  design: .rounded).bold())
+			Text(contact.formattedName)
+				.font(.system(size: 26, design: .rounded).bold())
 			
-			Text("Email")
+			Text(contact.email)
 				.font(.callout.bold())
 			
-			Text("Phone Number")
+			Text(contact.phoneNumber)
 				.font(.callout.bold())
 			
 		}
 		.frame(maxWidth: .infinity, alignment: .leading)
 		.overlay(alignment: .topTrailing) {
 			Button {
-				
+				toggleFave()
 			} label: {
 				Image(systemName: "star")
 					.font(.title3)
 					.symbolVariant(.fill)
-					.foregroundColor(.gray.opacity(0.3))
+					.foregroundColor(contact.isFavorite ? .yellow : .gray.opacity(0.3))
 			}
 			.buttonStyle(.plain)
 		}
     }
 }
 
-struct ContactRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContactRowView()
-    }
+extension ContactRowView {
+	
+	func toggleFave() {
+		contact.isFavorite.toggle()
+		do {
+			if moc.hasChanges {
+				try moc.save()
+			}
+			
+		} catch {
+				print(error)
+		}
+	}
+	
 }
+
+//struct ContactRowView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContactRowView()
+//    }
+//}
