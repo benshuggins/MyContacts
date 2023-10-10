@@ -11,6 +11,9 @@
 		F5DFB10A2AD5B3D5003D8AFC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DFB1092AD5B3D5003D8AFC /* ContentView.swift */; };
 		F5DFB10C2AD5B3D7003D8AFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5DFB10B2AD5B3D7003D8AFC /* Assets.xcassets */; };
 		F5DFB10F2AD5B3D7003D8AFC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5DFB10E2AD5B3D7003D8AFC /* Preview Assets.xcassets */; };
+		F5DFB1172AD5B742003D8AFC /* MyContactsDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F5DFB1152AD5B742003D8AFC /* MyContactsDataModel.xcdatamodeld */; };
+		F5DFB1192AD5BE38003D8AFC /* Contact .swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DFB1182AD5BE37003D8AFC /* Contact .swift */; };
+		F5DFB11C2AD5BF7F003D8AFC /* ContactsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DFB11B2AD5BF7F003D8AFC /* ContactsProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,9 @@
 		F5DFB1092AD5B3D5003D8AFC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F5DFB10B2AD5B3D7003D8AFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F5DFB10E2AD5B3D7003D8AFC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F5DFB1162AD5B742003D8AFC /* MyContactsDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyContactsDataModel.xcdatamodel; sourceTree = "<group>"; };
+		F5DFB1182AD5BE37003D8AFC /* Contact .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Contact .swift"; sourceTree = "<group>"; };
+		F5DFB11B2AD5BF7F003D8AFC /* ContactsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +57,11 @@
 		F5DFB1062AD5B3D5003D8AFC /* MyContacts */ = {
 			isa = PBXGroup;
 			children = (
+				F5DFB11A2AD5BF5D003D8AFC /* Provider */,
 				F5DFB1072AD5B3D5003D8AFC /* MyContactsApp.swift */,
 				F5DFB1092AD5B3D5003D8AFC /* ContentView.swift */,
+				F5DFB1152AD5B742003D8AFC /* MyContactsDataModel.xcdatamodeld */,
+				F5DFB1182AD5BE37003D8AFC /* Contact .swift */,
 				F5DFB10B2AD5B3D7003D8AFC /* Assets.xcassets */,
 				F5DFB10D2AD5B3D7003D8AFC /* Preview Content */,
 			);
@@ -65,6 +74,14 @@
 				F5DFB10E2AD5B3D7003D8AFC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F5DFB11A2AD5BF5D003D8AFC /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				F5DFB11B2AD5BF7F003D8AFC /* ContactsProvider.swift */,
+			);
+			path = Provider;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +155,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5DFB10A2AD5B3D5003D8AFC /* ContentView.swift in Sources */,
+				F5DFB11C2AD5BF7F003D8AFC /* ContactsProvider.swift in Sources */,
+				F5DFB1192AD5BE38003D8AFC /* Contact .swift in Sources */,
+				F5DFB1172AD5B742003D8AFC /* MyContactsDataModel.xcdatamodeld in Sources */,
 				F5DFB1082AD5B3D5003D8AFC /* MyContactsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,6 +359,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F5DFB1152AD5B742003D8AFC /* MyContactsDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F5DFB1162AD5B742003D8AFC /* MyContactsDataModel.xcdatamodel */,
+			);
+			currentVersion = F5DFB1162AD5B742003D8AFC /* MyContactsDataModel.xcdatamodel */;
+			path = MyContactsDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F5DFB0FC2AD5B3D5003D8AFC /* Project object */;
 }
