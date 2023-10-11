@@ -35,7 +35,14 @@ struct ContentView: View {
 								ContactRowView(contact: contact)
 									.swipeActions(allowsFullSwipe: true) {
 										Button(role: .destructive) {
-
+											
+											do {
+												try delete(contact)
+									
+											} catch {
+												print(error)
+											}
+											
 										} label: {
 											Label("Delete", systemImage: "trash")
 										}
@@ -51,6 +58,7 @@ struct ContentView: View {
 										.tint(.orange)
 								}
 							}
+			
 						}
 					}
 				}
@@ -70,10 +78,25 @@ struct ContentView: View {
 				NavigationStack {
 					AddContactView(vm: .init(provider: provider))  // pass provider into the view
 				}
-				
 			}
 		}
 	}
+}
+
+private extension ContentView {
+	
+	func delete(_ contact: Contact) throws {
+		let context = provider.viewContext
+		let currentContact = try context.existingObject(with: contact.objectID)
+		context.delete(currentContact)
+		Task(priority: .background) {  // program crashes without deletion performed on background thread 
+			try await context.perform {
+				try context.save()
+			}
+		}
+		
+	}
+	
 }
 
 struct ContentView_Previews: PreviewProvider {
