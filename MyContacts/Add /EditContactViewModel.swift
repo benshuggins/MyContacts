@@ -10,14 +10,13 @@ import CoreData
 
 final class EditContactViewModel: ObservableObject {
 	
-	@Published var contact: Contact
+	@Published var contact: Contact  // @published allows updated changes
 	
 	private let context: NSManagedObjectContext    // this is a separate context away from the main context that can be committed if we want to keep said changes
 	
 	init(provider: ContactsProvider, contact: Contact? = nil) {  // if contact object doesn't exist then create a new one 
 		self.context = provider.newContext
 		self.contact = Contact(context: self.context)
-		
 	}
 	
 	func save() throws {

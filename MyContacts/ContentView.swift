@@ -5,6 +5,8 @@
 //  Created by Ben Huggins on 10/10/23.
 //
 
+// https://www.youtube.com/watch?v=rTXkGCg58w0&ab_channel=tundsdev
+
 import SwiftUI
 import CoreData
 
@@ -31,6 +33,23 @@ struct ContentView: View {
 								.opacity(0)
 								
 								ContactRowView(contact: contact)
+									.swipeActions(allowsFullSwipe: true) {
+										Button(role: .destructive) {
+
+										} label: {
+											Label("Delete", systemImage: "trash")
+										}
+										.tint(.red)
+
+										Button {
+
+
+										} label: {
+											Label("Edit", systemImage: "pencil")
+										}
+
+										.tint(.orange)
+								}
 							}
 						}
 					}
