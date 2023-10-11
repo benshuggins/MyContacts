@@ -69,7 +69,10 @@ struct AddContactView: View {
 struct AddContactView_Previews: PreviewProvider {
     static var previews: some View {
 		NavigationStack {
-			AddContactView(vm: .init(provider: .shared))
+			let preview = ContactsProvider.shared
+			
+			AddContactView(vm: .init(provider: preview))
+				.environment(\.managedObjectContext, preview.viewContext)
 		}
     }
 }

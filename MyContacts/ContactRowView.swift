@@ -58,8 +58,8 @@ extension ContactRowView {
 	
 }
 
-//struct ContactRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContactRowView()
-//    }
-//}
+struct ContactRowView_Previews: PreviewProvider {
+    static var previews: some View {
+		ContactRowView(contact: .preview())
+    }
+}

@@ -18,6 +18,7 @@
 		F5DFB1202AD5C44A003D8AFC /* ContactDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DFB11F2AD5C44A003D8AFC /* ContactDetailView.swift */; };
 		F5DFB1222AD5C748003D8AFC /* AddContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DFB1212AD5C748003D8AFC /* AddContactView.swift */; };
 		F5DFB1272AD5D179003D8AFC /* EditContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DFB1262AD5D179003D8AFC /* EditContactViewModel.swift */; };
+		F5DFB1292AD608A3003D8AFC /* EmptyContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DFB1282AD608A3003D8AFC /* EmptyContactView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		F5DFB11F2AD5C44A003D8AFC /* ContactDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailView.swift; sourceTree = "<group>"; };
 		F5DFB1212AD5C748003D8AFC /* AddContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactView.swift; sourceTree = "<group>"; };
 		F5DFB1262AD5D179003D8AFC /* EditContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditContactViewModel.swift; sourceTree = "<group>"; };
+		F5DFB1282AD608A3003D8AFC /* EmptyContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyContactView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				F5DFB11A2AD5BF5D003D8AFC /* Provider */,
 				F5DFB1232AD5D0E4003D8AFC /* Add  */,
 				F5DFB1092AD5B3D5003D8AFC /* ContentView.swift */,
+				F5DFB1282AD608A3003D8AFC /* EmptyContactView.swift */,
 				F5DFB11D2AD5C2B9003D8AFC /* ContactRowView.swift */,
 				F5DFB11F2AD5C44A003D8AFC /* ContactDetailView.swift */,
 				F5DFB1152AD5B742003D8AFC /* MyContactsDataModel.xcdatamodeld */,
@@ -175,6 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5DFB10A2AD5B3D5003D8AFC /* ContentView.swift in Sources */,
+				F5DFB1292AD608A3003D8AFC /* EmptyContactView.swift in Sources */,
 				F5DFB11C2AD5BF7F003D8AFC /* ContactsProvider.swift in Sources */,
 				F5DFB1202AD5C44A003D8AFC /* ContactDetailView.swift in Sources */,
 				F5DFB1272AD5D179003D8AFC /* EditContactViewModel.swift in Sources */,
