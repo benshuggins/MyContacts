@@ -22,6 +22,11 @@ final class Contact: NSManagedObject, Identifiable {
 		Calendar.current.isDateInToday(dob)
 	}
 	
+	var isValid: Bool {
+		!name.isEmpty &&
+		!phoneNumber.isEmpty
+	}
+	
 	var formattedName: String {
 		"\(isBirthday ? "🎈" : "")\(name)"
 	}
@@ -71,7 +76,8 @@ extension Contact {
 		return makePreview(count: 1, in: context)[0]
 	}
 	
-	// This is for an empty contact without any data entered
+	
+	// This is for an empty contact without any data entered // This allows us to run DUMMY DATA Inside XCODE == IT is stupid that we have to do this
 	static func empty(context: NSManagedObjectContext = ContactsProvider.shared.viewContext) -> Contact {
 		return Contact(context: context)
 	}

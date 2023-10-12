@@ -14,21 +14,21 @@ final class ContactsProvider {
 	static let shared = ContactsProvider()
 	private let persistentContainer: NSPersistentContainer
 	
-	var viewContext: NSManagedObjectContext {    // context within current view
+	var viewContext: NSManagedObjectContext {    // context within current view THE MAIN CONTEXT
 		persistentContainer.viewContext
 	}
-	
-//	var newContext: NSManagedObjectContext {			// this context if for editing
-//		persistentContainer.newBackgroundContext()
-//	}
-//
-	
-	// Better thread safety
+	// Better thread safety  THIS CONTEXT IS FOR EDITING, I MAKE CHANGES AWAY FROM THE MAIN CONTEXT 
 	var newContext: NSManagedObjectContext {
 		let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
 		context.persistentStoreCoordinator = persistentContainer.persistentStoreCoordinator
 		return context
 	}
+	
+	//	var newContext: NSManagedObjectContext {			// this context if for editing
+	//		persistentContainer.newBackgroundContext()
+	//	}
+	//
+	
 	
 	private init() {
 		persistentContainer = NSPersistentContainer(name: "MyContactsDataModel")

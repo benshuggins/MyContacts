@@ -50,12 +50,10 @@ extension ContactRowView {
 			if moc.hasChanges {
 				try moc.save()
 			}
-			
 		} catch {
 				print(error)
 		}
-	}
-	
+	}	
 }
 
 struct ContactRowView_Previews: PreviewProvider {

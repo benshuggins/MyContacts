@@ -13,12 +13,11 @@ struct AddContactView: View {
 	@Environment(\.dismiss) private var dismiss
 	
 	@ObservedObject var vm: EditContactViewModel    //> new instance of vm
+	@State private var hasError: Bool = false
 	
     var body: some View {
 		List {
-			
 			Section("General") {
-			   
 				TextField("Name", text: $vm.contact.name)         // binded to vm
 									.keyboardType(.namePhonePad)
 
@@ -41,18 +40,11 @@ struct AddContactView: View {
 				TextField("Notes", text: $vm.contact.notes)
 			}
 		}
-		.navigationTitle("New Contact")
+		.navigationTitle(vm.isNewContact ? "New Contact" : "Update Contact")
 		.toolbar {
 			ToolbarItem(placement: .confirmationAction) {
 				Button("Done") {
-					
-					do {
-						try vm.save()
-						dismiss()
-					} catch {
-						print(error)
-					}
-					dismiss()
+					validateUser()
 				}
 			}
 			
@@ -61,6 +53,27 @@ struct AddContactView: View {
 					dismiss()
 				}
 			}
+		}
+		.alert("Missing items", isPresented: $hasError, actions: {}) {
+			Text("It looks like your missing a Name or Phone Number")
+		}
+	}
+}
+
+private extension AddContactView {
+	
+	func validateUser() {
+		
+		if vm.contact.isValid {
+			do {
+				try vm.save()
+				dismiss()
+			} catch {
+				print(error)
+			}
+			dismiss()
+		} else {
+			hasError = true
 		}
 	}
 }

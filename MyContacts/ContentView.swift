@@ -12,7 +12,10 @@ import CoreData
 
 struct ContentView: View {
 	
-	@State private var isShowingAddContact = false
+	//@State private var isShowingAddContact = false  // can only add
+	
+	@State private var contactToEdit: Contact? // this is a contact that I might want to edit
+	 
 	@FetchRequest(fetchRequest: Contact.all()) private var contacts // not using fetchedresults here ??? // this is a property wrapper cont
 	 
 	var provider = ContactsProvider.shared
@@ -34,31 +37,29 @@ struct ContentView: View {
 								
 								ContactRowView(contact: contact)
 									.swipeActions(allowsFullSwipe: true) {
+										// DELETE
 										Button(role: .destructive) {
-											
 											do {
 												try delete(contact)
-									
 											} catch {
 												print(error)
 											}
-											
 										} label: {
 											Label("Delete", systemImage: "trash")
 										}
 										.tint(.red)
 
+										
+										 // EDIT
 										Button {
-
+										contactToEdit = contact // current contact is the contact that we want to edit
 
 										} label: {
 											Label("Edit", systemImage: "pencil")
 										}
-
 										.tint(.orange)
 								}
 							}
-			
 						}
 					}
 				}
@@ -66,19 +67,22 @@ struct ContentView: View {
 			.toolbar {
 				ToolbarItem(placement: .primaryAction) {
 					Button {
-						isShowingAddContact.toggle()
+						contactToEdit = .empty(context: provider.newContext)
 					} label: {
 						Image(systemName: "plus")
 							.font(.title3)
 					}
 				}
 			}
-			.navigationTitle("Contacts")
-			.sheet(isPresented: $isShowingAddContact) {
+			.sheet(item: $contactToEdit,
+				   onDismiss: { contactToEdit = nil
+				
+			}, content: { contact in
 				NavigationStack {
-					AddContactView(vm: .init(provider: provider))  // pass provider into the view
+					AddContactView(vm: .init(provider: provider, contact: contact))  // pass provider into the view
 				}
-			}
+			})
+			.navigationTitle("Contacts")
 		}
 	}
 }
