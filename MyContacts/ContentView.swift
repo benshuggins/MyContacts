@@ -10,13 +10,24 @@
 import SwiftUI
 import CoreData
 
+struct SearchConfig: Equatable {
+	var query: String = ""
+}
+
 struct ContentView: View {
 	
-	//@State private var isShowingAddContact = false  // can only add
+	//@State private var isShowingAddContact = false  // can only add, cant update
 	
 	@State private var contactToEdit: Contact? // this is a contact that I might want to edit
 	 
 	@FetchRequest(fetchRequest: Contact.all()) private var contacts // not using fetchedresults here ??? // this is a property wrapper cont
+	
+	@State private var searchConfig: SearchConfig = .init()
+	
+//	var filteredContacts: [Contact] {
+//		guard !filteredContacts.isEmpty else { return contacts }
+//		return contacts.filter { $0.name.localizedCaseInsensitiveContains(searchTerm) }
+//	}
 	 
 	var provider = ContactsProvider.shared
 	
@@ -64,6 +75,9 @@ struct ContentView: View {
 					}
 				}
 			}
+			//.searchable(text: .constant(""))
+			.searchable(text: $searchConfig.query)
+			
 			.toolbar {
 				ToolbarItem(placement: .primaryAction) {
 					Button {
@@ -75,14 +89,17 @@ struct ContentView: View {
 				}
 			}
 			.sheet(item: $contactToEdit,
-				   onDismiss: { contactToEdit = nil
-				
-			}, content: { contact in
+onDismiss: { contactToEdit = nil
+			
+		}, content: { contact in
 				NavigationStack {
 					AddContactView(vm: .init(provider: provider, contact: contact))  // pass provider into the view
 				}
 			})
 			.navigationTitle("Contacts")
+			.onChange(of: searchConfig) { newValue in
+				contacts.nsPredicate = Contact.filter(newValue.query)
+			}
 		}
 	}
 }

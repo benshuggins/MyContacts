@@ -51,6 +51,10 @@ extension Contact {
 		request.sortDescriptors = [NSSortDescriptor(keyPath: \Contact.name, ascending: true)]
 		return request
 	}
+	
+	static func filter(_ query: String) -> NSPredicate {
+		query.isEmpty ? NSPredicate(value: true) : NSPredicate(format: "name CONTAINS[cd] %@", query)
+	}
 }
 
 // This is to create previews this is all dummy data
