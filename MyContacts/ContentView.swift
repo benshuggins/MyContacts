@@ -5,8 +5,6 @@
 //  Created by Ben Huggins on 10/10/23.
 //
 
-// https://www.youtube.com/watch?v=rTXkGCg58w0&ab_channel=tundsdev
-
 import SwiftUI
 import CoreData
 
@@ -17,18 +15,25 @@ struct SearchConfig: Equatable {
 
 	var query: String = ""
 	var filter: Filter = .all
-	
+	var sort: Sort = .ascending
 }
+
+enum Sort {
+	case ascending, descending
+}
+
 
 struct ContentView: View {
 	
 	//@State private var isShowingAddContact = false  // can only add, cant update
 	
 	@State private var contactToEdit: Contact? // this is a contact that I might want to edit
-	 
 	@FetchRequest(fetchRequest: Contact.all()) private var contacts // not using fetchedresults here ??? // this is a property wrapper cont
 	
+	// we are actually changing this contacts fetchRequest when we filter and sort using functions in the contact model
+	
 	@State private var searchConfig: SearchConfig = .init()
+	@State private var sort: Sort = .ascending
 	
 //	var filteredContacts: [Contact] {
 //		guard !filteredContacts.isEmpty else { return contacts }
@@ -45,7 +50,6 @@ struct ContentView: View {
 				} else {
 					List {
 						ForEach(contacts) { contact in
-							
 							ZStack(alignment: .leading) {
 								NavigationLink(destination: ContactDetailView(contact: contact)) {
 									EmptyView()
@@ -82,7 +86,6 @@ struct ContentView: View {
 				}
 			}
 			.searchable(text: $searchConfig.query)
-			
 			.toolbar {
 				ToolbarItem(placement: .navigationBarLeading) {
 					Button {
@@ -92,7 +95,8 @@ struct ContentView: View {
 							.font(.title3)
 					}
 				}
-				ToolbarItem(placement: .primaryAction) {
+				
+				ToolbarItem(placement: .navigationBarTrailing) {
 					
 					Menu {
 						Section {
@@ -106,11 +110,22 @@ struct ContentView: View {
 								Text("Filter Favorites")
 							}
 						}
+						
+						Section {
+							Text("Sort")
+							Picker(selection: $sort) {
+								
+								Text("A to Z").tag(Sort.ascending)
+								Text("Z to A").tag(Sort.descending)
+								
+							} label: {
+								Text("Sort")
+							}
+						}
 					} label: {
 						Image(systemName: "ellipsis")
 							.symbolVariant(.circle)
 							.font(.title3)
-							
 					}
 				}
 			}
@@ -121,9 +136,12 @@ struct ContentView: View {
 					AddContactView(vm: .init(provider: provider, contact: contact))  // pass provider into the view
 				}
 			})
-			.navigationTitle("Contacts")
+			.navigationTitle("Customers")
 			.onChange(of: searchConfig) { newConfig in
 				contacts.nsPredicate = Contact.filter(with: newConfig)
+			}
+			.onChange(of: sort) { newSort in
+				contacts.nsSortDescriptors = Contact.sort(order: newSort)
 			}
 		}
 	}
