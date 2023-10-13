@@ -42,7 +42,6 @@ extension Contact {
 	
 	private static var contactsFetchRequest: NSFetchRequest<Contact> {
 		NSFetchRequest(entityName: "Contact")
-		
 	}
 	
 	// this way I can call from here
@@ -52,11 +51,18 @@ extension Contact {
 		return request
 	}
 	
-	static func filter(_ query: String) -> NSPredicate {
-		query.isEmpty ? NSPredicate(value: true) : NSPredicate(format: "name CONTAINS[cd] %@", query)
+	static func filter(with config: SearchConfig) -> NSPredicate {
+		switch config.filter {
+			case .all:
+				return config.query.isEmpty ? NSPredicate(value: true) : NSPredicate(format: "name CONTAINS[cd] %@", config.query)
+				
+				// If the query is empty return all results that have isFav checked, else return all favorites with the correct name and isFav checked
+			case .fave:
+				return config.query.isEmpty ? NSPredicate(format: "isFavorite == %@", NSNumber(value: true)) :
+				NSPredicate(format: "name CONTAINS[cd] %@ AND isFavorite == %@", config.query, NSNumber(value: true))
+		}
 	}
 }
-
 // This is to create previews this is all dummy data
 extension Contact {
 	
@@ -79,7 +85,6 @@ extension Contact {
 	static func preview(context: NSManagedObjectContext = ContactsProvider.shared.viewContext) -> Contact {
 		return makePreview(count: 1, in: context)[0]
 	}
-	
 	
 	// This is for an empty contact without any data entered // This allows us to run DUMMY DATA Inside XCODE == IT is stupid that we have to do this
 	static func empty(context: NSManagedObjectContext = ContactsProvider.shared.viewContext) -> Contact {

@@ -11,7 +11,13 @@ import SwiftUI
 import CoreData
 
 struct SearchConfig: Equatable {
+	enum Filter {
+		case all, fave
+	}
+
 	var query: String = ""
+	var filter: Filter = .all
+	
 }
 
 struct ContentView: View {
@@ -75,11 +81,10 @@ struct ContentView: View {
 					}
 				}
 			}
-			//.searchable(text: .constant(""))
 			.searchable(text: $searchConfig.query)
 			
 			.toolbar {
-				ToolbarItem(placement: .primaryAction) {
+				ToolbarItem(placement: .navigationBarLeading) {
 					Button {
 						contactToEdit = .empty(context: provider.newContext)
 					} label: {
@@ -87,9 +92,29 @@ struct ContentView: View {
 							.font(.title3)
 					}
 				}
+				ToolbarItem(placement: .primaryAction) {
+					
+					Menu {
+						Section {
+							Text("Filter")
+							Picker(selection: $searchConfig.filter) {
+								
+								Text("All").tag(SearchConfig.Filter.all)
+								Text("Faves").tag(SearchConfig.Filter.fave)
+								
+							} label: {
+								Text("Filter Favorites")
+							}
+						}
+					} label: {
+						Image(systemName: "ellipsis")
+							.symbolVariant(.circle)
+							.font(.title3)
+							
+					}
+				}
 			}
-			.sheet(item: $contactToEdit,
-onDismiss: { contactToEdit = nil
+			.sheet(item: $contactToEdit, onDismiss: { contactToEdit = nil
 			
 		}, content: { contact in
 				NavigationStack {
@@ -97,15 +122,14 @@ onDismiss: { contactToEdit = nil
 				}
 			})
 			.navigationTitle("Contacts")
-			.onChange(of: searchConfig) { newValue in
-				contacts.nsPredicate = Contact.filter(newValue.query)
+			.onChange(of: searchConfig) { newConfig in
+				contacts.nsPredicate = Contact.filter(with: newConfig)
 			}
 		}
 	}
 }
 
 private extension ContentView {
-	
 	func delete(_ contact: Contact) throws {
 		let context = provider.viewContext
 		let currentContact = try context.existingObject(with: contact.objectID)
@@ -115,9 +139,7 @@ private extension ContentView {
 				try context.save()
 			}
 		}
-		
 	}
-	
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -127,8 +149,7 @@ struct ContentView_Previews: PreviewProvider {
 			.environment(\.managedObjectContext, preview.viewContext)
 			.previewDisplayName("Contacts with Data")
 			.onAppear { Contact.makePreview(count: 10, in: preview.viewContext)
-				
-			}
+		}
 		
 			// This is a preview for when there is no data 
 		let emptyPreview = ContactsProvider.shared
